@@ -16,10 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf.urls.static import static
+from btk_shop import settings
 urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
 ]
+
+# resimlerin veya static dosyaların admin tarafında gösterilmesi için
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
