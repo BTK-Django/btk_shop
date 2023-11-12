@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+
+import home.views
 from btk_shop import settings
 urlpatterns = [
     path('', include('home.urls')),
@@ -25,6 +27,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/', include('product.urls')),
 #     blog linkleri
+
+    path("hakkimizda/", home.views.hakkimizda, name="hakkimizda"),
+    # path("referanslar", home.views.referanslar, name="referanslar"),
+    # path("iletisim", home.views.iletisim, name="iletisim"),
 
 #     ckeditor linki
     path('ckeditor/', include('ckeditor_uploader.urls')),
