@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    isim = "Volkan"
-    context = {'isim': isim}
+    title= "Volkan"
+    context = {'title': title}
     return render(request, 'index.html', context)
     # return HttpResponse("Merhaba")
