@@ -4,9 +4,6 @@ urlpatterns = [
     # ex: /polls/
 
     path("", views.index, name="index"),
-
-#     blog linkleri
-
     path("hakkimizda", views.hakkimizda, name="hakkimizda"),
     path("referanslar", views.referanslar, name="referanslar"),
     path("iletisim", views.iletisim, name="iletisim"),
