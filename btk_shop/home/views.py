@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from home.models import Setting
 # Create your views here.
 def index(request):
-    title= "Volkan"
-    context = {'title': title}
+    setting = Setting.objects.get(pk=1)
+    print(setting)
+    context = {'setting': setting}
     return render(request, 'index.html', context)
-    # return HttpResponse("Merhaba")

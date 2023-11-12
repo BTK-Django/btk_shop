@@ -1,11 +1,11 @@
 {% extends 'homebase.html' %}
 {%  load static %}
-{% block title %} {{ title }}{% endblock %}
-{% block description %} index description {% endblock %}
-{% block keywords %} index keywords {% endblock %}
+{% block title %} {{ setting.title }}{% endblock %}
+{% block description %} {{ setting.description}} {% endblock %}
+{% block keywords %} {{ setting.keywords}} {% endblock %}
 
 <!-- aşağı kısım sonradan eklenecek -->
-{#{% block head %} <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}" >  {% endblock %}#}
+{% block head %} <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}" >  {% endblock %}
 
 {% block sidebar %} {% include 'sidebar.html' %}  {% endblock %}
 
