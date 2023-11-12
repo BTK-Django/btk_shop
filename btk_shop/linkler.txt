@@ -2,3 +2,6 @@ ckeditor
 https://overiq.com/django-1-10/integrating-ckeditor-in-django/
 son versiyon
 https://pypi.org/project/django-ckeditor/#installation
+
+template içinde değişken tanımlama
+https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#with
