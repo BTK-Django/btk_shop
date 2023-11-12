@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <title>{% block title %} BTK Shop {% endblock %}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta content="{% block keywords %} BTK Shop keywords {% endblock %}" name="keywords">
+    <meta content="{% block description %} BTK Shop description{% endblock %}" name="description">
 
     <!-- Favicon -->
     <link href="{% static 'img/favicon.ico'%}" rel="icon">
@@ -21,22 +21,16 @@
 
     <!-- Libraries Stylesheet -->
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
-
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css'%}" rel="stylesheet">
+{% block head %}   {% endblock %}
 </head>
-
 <body>
-
 {% include 'header.html' %}
 {% block sidebar %} {% endblock %}
 {% block slider %} {% endblock %}
 {% block body %} {% endblock %}
 {% include 'footer.html' %}
-
 {% block foot %} {% endblock %}
-
-
 </body>
-
 </html>

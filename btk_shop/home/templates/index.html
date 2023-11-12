@@ -1,7 +1,13 @@
-{%  extends 'homebase.html' %}
-{% load static %}
-{%  block title %} BTK Shop Anasayfa Hoşgeldiniz {% endblock %}
+{% extends 'homebase.html' %}
+{% block title %} index title{% endblock %}
+{% block description %} index description {% endblock %}
+{% block keywords %} index keywords {% endblock %}
+
+<!-- aşağı kısım sonradan eklenecek -->
+{#{% block head %} <link rel="shortcut icon" type="image/x-icon" href="{{ setting.icon.url }}" >  {% endblock %}#}
+
+{% block sidebar %} {% include 'sidebar.html' %}  {% endblock %}
+
+{% block body %} {% include 'content.html' %}  {% endblock %}
 
 
-
-{% block sidebar %} {% include 'sidebar.html' %}{% endblock %}
