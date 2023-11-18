@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from home.models import Setting, ContactForm
+
+from home.forms import ContactForm
+from home.models import Setting
 
 
 # Create your views here.
