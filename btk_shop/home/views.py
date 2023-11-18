@@ -6,28 +6,22 @@ from home.forms import ContactForm
 from home.models import Setting, ContactFormMessage
 from product.models import Product, Category
 
-
 # Create your views here.
+
 def index(request):
-    category = Category.objects.all()
-    setting = Setting.objects.get(pk=1)
     slider = Product.objects.all()
-    context = {'category': category,
-               'setting': setting,
-               'page': 'home',
+    context = {'page': 'home',
                'slider': slider}
     return render(request, 'index.html', context)
 
 
 def hakkimizda(request):
-    setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'hakkımızda'}
+    context = {'page': 'hakkımızda'}
     return render(request, 'hakkimizda.html', context)
 
 
 def referanslar(request):
-    setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'referanslar'}
+    context = {'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
 
 
