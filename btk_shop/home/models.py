@@ -1,6 +1,8 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.forms import ModelForm, TextInput, Textarea
+
+
 class Setting(models.Model):
     STATUS = (('True', 'Evet'), ('False', 'Hayır'),)
     title = models.CharField(max_length=150)
@@ -21,13 +23,16 @@ class Setting(models.Model):
     twitter = models.CharField(blank=True, max_length=50)
     youtube = models.CharField(blank=True, max_length=50)
     aboutus = RichTextUploadingField()  # models.TextField()
-    contact = RichTextUploadingField() #RichTextUploadingField()
+    contact = RichTextUploadingField()  # RichTextUploadingField()
     references = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.title
+
+
 class ContactFormMessage(models.Model):
     STATUS = (
         ('New', 'New'),
@@ -46,15 +51,15 @@ class ContactFormMessage(models.Model):
 
     def __str__(self):
         return self.name
+
+
 class ContactForm(ModelForm):
     class Meta:
         model = ContactFormMessage
-        fields = ['name', 'email', 'subject','message']
+        fields = ['name', 'email', 'subject', 'message']
         widgets = {
-            'name'   : TextInput(attrs={'class': 'input','placeholder':'Name & Surname'}),
-            'subject' : TextInput(attrs={'class': 'input','placeholder':'Subject'}),
-            'email'   : TextInput(attrs={'class': 'input','placeholder':'Email Address'}),
-            'message' : Textarea(attrs={'class': 'input','placeholder':'Your Message','rows':'5'}),
+            'name': TextInput(attrs={'class': 'input', 'placeholder': 'Name & Surname'}),
+            'subject': TextInput(attrs={'class': 'input', 'placeholder': 'Subject'}),
+            'email': TextInput(attrs={'class': 'input', 'placeholder': 'Email Address'}),
+            'message': Textarea(attrs={'class': 'input', 'placeholder': 'Your Message', 'rows': '5'}),
         }
-
-

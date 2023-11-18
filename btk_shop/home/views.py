@@ -1,22 +1,31 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from home.models import Setting
+from home.models import Setting, ContactForm
+
+
 # Create your views here.
 def index(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'home'}
+    context = {'setting': setting, 'page': 'home'}
     return render(request, 'index.html', context)
+
+
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'hakkımızda'}
+    context = {'setting': setting, 'page': 'hakkımızda'}
     return render(request, 'hakkimizda.html', context)
+
 
 def referanslar(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'referanslar'}
+    context = {'setting': setting, 'page': 'referanslar'}
     return render(request, 'referanslar.html', context)
+
 
 def iletisim(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'iletisim'}
+    form = ContactForm
+    context = {'setting': setting,
+               'page': 'iletisim',
+               'form': form}
     return render(request, 'iletisim.html', context)
