@@ -1,7 +1,7 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
 
-from product.models import Category, Product, Images
+from product.models import Category, Product, Images, Comment
 
 
 class ProductImagesInline(admin.TabularInline):
@@ -73,3 +73,10 @@ class ImagesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Images, ImagesAdmin)
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject','comment', 'status','create_at']
+    list_filter = ['status']
+    readonly_fields = ('subject','comment','ip','user','product','rate','id')
+
+admin.site.register(Comment, CommentAdmin)
