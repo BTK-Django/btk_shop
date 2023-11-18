@@ -19,9 +19,9 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">{{ urun.title}}</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="/">Home</a></p>
                 <p class="m-0 px-2">-</p>
-                <p class="m-0">Shop Detail</p>
+                <p class="m-0"><a href="/category/{{ urun.category.id}}/{{ urun.category.slug}}">{{ urun.category}}</a></p>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
                     </div>
                     <small class="pt-1">(50 Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">$150.00</h3>
+                <h3 class="font-weight-semi-bold mb-4">${{ urun.price }}</h3>
                 <p class="mb-4">{{ urun.description }}</p>
                 <div class="d-flex mb-3">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Sizes:</p>

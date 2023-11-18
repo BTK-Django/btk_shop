@@ -4,7 +4,8 @@ from django.shortcuts import render
 
 from home.forms import ContactForm
 from home.models import Setting, ContactFormMessage
-from product.models import Product, Category
+from product.models import Product, Category, Images, Comment, CommentForm
+
 
 # Create your views here.
 
@@ -66,3 +67,18 @@ def categoryProducts(request, id, slug):
                'urunKategori': urunKategori,
                'urunler': urunler}
     return render(request, 'kategori_urunler.html', context)
+
+
+def productDetail(request, id, slug):
+    urun = Product.objects.get(pk=id)
+    images = Images.objects.filter(product = urun)
+    # print(request.get_full_path())
+    # print(request.get_host())
+    # print(request.build_absolute_uri())
+    comments = Comment.objects.filter(product_id=id)
+    context = {'page': 'Urun',
+               'urun': urun,
+               'images': images,
+               'comments': comments
+    }
+    return render(request, 'urun_detay.html', context)
