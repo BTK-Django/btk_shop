@@ -44,16 +44,13 @@ def iletisim(request):
 
     setting = Setting.objects.get(pk=1)
     form = ContactForm
-    context = {'setting': setting,
-               'form': form,
+    context = {'form': form,
                'page': 'iletisim'}
     return render(request, 'iletisim.html', context)
 
 
 def categoryProducts(request, id, slug):
     urunKategori = Category.objects.get(pk=id)
-    category = Category.objects.all()
-    setting = Setting.objects.get(pk=1)
     urunler = list(Product.objects.filter(category_id=id))
 
     node = Category.objects.get(pk=id)
@@ -63,8 +60,7 @@ def categoryProducts(request, id, slug):
         a = list(Product.objects.filter(category_id=dd.id))
         urunler.extend(a)
 
-    context = {'setting': setting, 'page': 'Kategori',
-               'category': category,
+    context = {'page': 'Kategori',
                'urunKategori': urunKategori,
                'urunler': urunler}
     return render(request, 'kategori_urunler.html', context)

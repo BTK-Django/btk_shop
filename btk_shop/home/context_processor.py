@@ -8,3 +8,5 @@ def category(request):
 
 def setting(request):
     return {'setting': Setting.objects.all()}
+# contexts_processor ile tüm sayfalarda ortak context tanımlamaları yapılıyor
+# sonrasında setting.py içinde tanımlama yapmak gerekiyor
