@@ -4,14 +4,16 @@ from django.shortcuts import render
 
 from home.forms import ContactForm
 from home.models import Setting, ContactFormMessage
-from product.models import Product
+from product.models import Product, Category
 
 
 # Create your views here.
 def index(request):
+    category = Category.objects.all()
     setting = Setting.objects.get(pk=1)
     slider = Product.objects.all()
-    context = {'setting': setting,
+    context = {'category': category,
+               'setting': setting,
                'page': 'home',
                'slider': slider}
     return render(request, 'index.html', context)
@@ -40,7 +42,7 @@ def iletisim(request):
             data.message = form.cleaned_data['message']
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
-            messages.success(request,' Mesajınız Sisteme İletildi')
+            messages.success(request, ' Mesajınız Sisteme İletildi')
             return HttpResponseRedirect('/iletisim')
         else:
             messages.warning(request, ' Mesajınız Sisteme İletilemedi')
