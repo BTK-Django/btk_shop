@@ -1,8 +1,12 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.safestring import mark_safe
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
 
 
-class Category(models.Model):
+# class Category(models.Model):
+class Category(MPTTModel):
     STATUS = ( ('True', 'Evet'),('False', 'Hayir') )
     title = models.CharField(max_length=30)
     keywords = models.CharField(max_length=250)
@@ -10,12 +14,34 @@ class Category(models.Model):
     image = models.ImageField(blank=True, upload_to='images/')
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField()
-    parent = models.ForeignKey('self', blank=True, null= True, related_name='children',
-                               on_delete=models.CASCADE)
+    parent = TreeForeignKey('self', blank=True, null=True,
+                            related_name='children', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    # def __str__(self):
+    #     return self.title
+    class MPTTMeta:
+        order_insertion_by = ['title']
+
+    def get_absolute_url(self):
+        return reverse('categoryProducts', kwargs={'slug': self.slug})
+
     def __str__(self):
-        return self.title
+        full_path = [self.title]
+        k = self.parent
+        while k is not None:
+            full_path.append(k.title)
+            k = k.parent
+        return '/'.join((full_path[::1]))
+
+
+
+
+
+
+
+
 class Product(models.Model):
     STATUS = (('True', 'Evet'),
         ('False', 'Hayir'), )
