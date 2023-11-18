@@ -27,6 +27,7 @@ urlpatterns = [
     path('product/', include('product.urls')),
 
 
+
 #     ckeditor linki
     path('ckeditor/', include('ckeditor_uploader.urls')),
 

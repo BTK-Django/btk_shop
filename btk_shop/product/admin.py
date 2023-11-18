@@ -60,6 +60,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'category_tag', 'image_tag']
     list_filter = ['status', 'category']
     readonly_fields = ('image_tag',)
+    prepopulated_fields = {'slug': ('title',)}
     inlines = [ProductImagesInline]
 
 

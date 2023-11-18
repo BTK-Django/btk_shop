@@ -10,8 +10,10 @@ from product.models import Product, Category
 
 def index(request):
     slider = Product.objects.all()
+    urunler = Product.objects.order_by('?')[:8]
     context = {'page': 'home',
-               'slider': slider}
+               'slider': slider,
+               'urunler':urunler}
     return render(request, 'index.html', context)
 
 

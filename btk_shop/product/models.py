@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -53,11 +54,16 @@ class Product(models.Model):
     # price = models.DecimalField(max_digits=12, decimal_places=2,default=0)
     price= models.FloatField()
     amount=models.IntegerField(default=0)
-    # detail=RichTextUploadingField()
+    detail=RichTextUploadingField()
     detail = models.TextField()
     status=models.CharField(max_length=10,choices=STATUS)
+
     create_at=models.DateTimeField(auto_now_add=True)
     update_at=models.DateTimeField(auto_now=True)
+    slug = models.SlugField()
+
+    def get_absolute_url(self):
+        return reverse('categoryProducts', kwargs={'slug': self.slug})
 
     def category_tag(self):
         return self.category
