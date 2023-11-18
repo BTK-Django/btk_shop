@@ -5,3 +5,9 @@ https://pypi.org/project/django-ckeditor/#installation
 
 template içinde değişken tanımlama
 https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#with
+
+template içinde değişken tanımlama
+{% firstof '<p style="color:red">Hakkımızda</p>' as deghishken %}
+{{deghishken}}
+
+https://discordapp.com/channels/1170261229470744576/1170261229470744583/1173315826368139334
