@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+
 urlpatterns = [
     # ex: /polls/
 
@@ -7,6 +8,7 @@ urlpatterns = [
     path("hakkimizda", views.hakkimizda, name="hakkimizda"),
     path("referanslar", views.referanslar, name="referanslar"),
     path("iletisim", views.iletisim, name="iletisim"),
+    path("category/<int:id>/<slug:slug>", views.categoryProducts, name="categoryProducts"),
 
     # ex: /polls/5/
     # path("<int:question_id>/", views.detail, name="detail"),
