@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from home.forms import ContactForm
+from home.forms import ContactForm, SearchForm
 from home.models import Setting, ContactFormMessage
 from product.models import Product, Category, Images, Comment, CommentForm
 
@@ -14,7 +14,7 @@ def index(request):
     urunler = Product.objects.order_by('?')[:8]
     context = {'page': 'home',
                'slider': slider,
-               'urunler':urunler}
+               'urunler': urunler}
     return render(request, 'index.html', context)
 
 
@@ -33,7 +33,7 @@ def iletisim(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             data = ContactFormMessage()
-            data.name = form.cleaned_data['name']
+            data.name = form.cleaned_data.get("name")
             data.email = form.cleaned_data['email']
             data.subject = form.cleaned_data['subject']
             data.message = form.cleaned_data['message']
@@ -44,8 +44,6 @@ def iletisim(request):
         else:
             messages.warning(request, ' Mesajınız Sisteme İletilemedi')
             return HttpResponseRedirect('/iletisim')
-
-    setting = Setting.objects.get(pk=1)
     form = ContactForm
     context = {'form': form,
                'page': 'iletisim'}
@@ -71,7 +69,7 @@ def categoryProducts(request, id, slug):
 
 def productDetail(request, id, slug):
     urun = Product.objects.get(pk=id)
-    images = Images.objects.filter(product = urun)
+    images = Images.objects.filter(product=urun)
     # print(request.get_full_path())
     # print(request.get_host())
     # print(request.build_absolute_uri())
@@ -80,5 +78,17 @@ def productDetail(request, id, slug):
                'urun': urun,
                'images': images,
                'comments': comments
-    }
+               }
     return render(request, 'urun_detay.html', context)
+
+
+def search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            products = Product.objects.filter(title__icontains=query)
+            context = {'urunler': products,
+                       'query': query}
+            return render(request, 'product_search.html', context)
+    return HttpResponseRedirect('/')

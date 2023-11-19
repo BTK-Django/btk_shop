@@ -10,6 +10,8 @@ urlpatterns = [
     path("iletisim", views.iletisim, name="iletisim"),
     path("category/<int:id>/<slug:slug>", views.categoryProducts, name="categoryProducts"),
     path("product_detail/<int:id>/<slug:slug>", views.productDetail, name="productDetail"),
+    path('search/', views.search, name='search'),
+
 
     # ex: /polls/5/
     # path("<int:question_id>/", views.detail, name="detail"),

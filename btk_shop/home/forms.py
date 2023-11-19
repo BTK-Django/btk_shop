@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm, TextInput, Textarea
 from home.models import ContactFormMessage
 
@@ -20,4 +21,7 @@ class ContactForm(ModelForm):
                                        'required': "required",
                                        'data-validation-required-message': "Please enter your message"}),
         }
+
+class SearchForm(ModelForm):
+    query = forms.CharField(max_length=100)
 
