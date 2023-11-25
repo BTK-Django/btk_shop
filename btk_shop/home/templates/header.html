@@ -41,7 +41,7 @@
                 <form action="{% url 'search' %}" method="post">
                     {% csrf_token %}
                     <div class="input-group">
-                        <input type="text" class="form-control" name="query" placeholder="Search for products">
+                        <input type="text" class="form-control" name="query" value="{{ query }}" placeholder="Search for products">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <button class="btn btn-sm btn-primary btn-search" >
