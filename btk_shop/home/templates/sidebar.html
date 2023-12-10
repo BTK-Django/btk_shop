@@ -1,5 +1,10 @@
 {% load static %}
-
+{#{% for info in category_info %}#}
+{#    <h1>{{ info.category.title }}</h1>#}
+{#    <p>Toplam ürün sayısı: {{ info.product_count }}</p>#}
+{#    <p>Toplam alt kategori ürün sayısı: {{ info.total_subcategory_products }}</p>#}
+{#    <hr>#}
+{#{% endfor %}#}
 <!-- Navbar Start -->
 {% if page == 'home' %}
     <div class="container-fluid mb-5">
@@ -23,28 +28,36 @@
         {% endif %}
 
         <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-            {% load mptt_tags %}
-            {% recursetree category %}
-                {% if node.is_leaf_node %}
-                    <a href="/category/{{ node.id }}/{{ node.slug }}" class="nav-item nav-link">{{ node.title }}</a>
-                {% else %}
-                    <div class="nav-item dropdown">
-                        <a href="/category/{{ node.id }}/{{ node.slug }}" class="nav-link"
-                           data-toggle="dropdown">{{ node.title }} <i class="fa fa-angle-down float-right mt-1"></i></a>
+{#            {% load mptt_tags %}#}
+{#            {% recursetree category %}#}
+{#                {% if node.is_leaf_node %}#}
+{#                    <a href="/category/{{ node.id }}/{{ node.slug }}" class="nav-item nav-link">{{ node.title }}{{ node.related_products_count }}</a>#}
+{#                {% else %}#}
+{#                    <div class="nav-item dropdown">#}
+{#                        <a href="/category/{{ node.id }}/{{ node.slug }}" class="nav-link"#}
+{#                           data-toggle="dropdown">{{ node.title }}{{ node.related_products_count }} <i class="fa fa-angle-down float-right mt-1"></i></a>#}
+{##}
+{#                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">#}
+{#                            <a href="/category/{{ node.id }}/{{ node.slug }}"#}
+{#                               class="nav-item nav-link">{{ node.title }}{{ node.related_products_count }}</a>#}
+{#                            <a href="/category/{{ children.id }}/{{ children.slug }}"#}
+{#                               >{{ children }}</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                {% endif %}#}
+{##}
+{##}
+{##}
+{#            {% endrecursetree %}#}
 
-                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="/category/{{ node.id }}/{{ node.slug }}"
-                               class="nav-item nav-link">{{ node.title }}</a>
-                            <a href="/category/{{ children.id }}/{{ children.slug }}"
-                               >{{ children }}</a>
-                        </div>
-                    </div>
+{% for info in category_info %}
+    <h1>{{ info.category.title }}</h1>
+    <p>Toplam ürün sayısı: {{ info.product_count }}</p>
+    <p>Toplam alt kategori ürün sayısı: {{ info.total_subcategory_products }}</p>
+    <hr>
+{% endfor %}
 
-                {% endif %}
-
-
-
-            {% endrecursetree %}
         </div>
         </nav>
     </div>

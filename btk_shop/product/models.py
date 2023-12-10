@@ -4,6 +4,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from mptt.admin import DraggableMPTTAdmin
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
@@ -27,8 +28,48 @@ class Category(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['title']
 
+    def get_descendant_count(self):
+        """
+        Returns the number of descendants this model instance has.
+        """
+        if self._mpttfield('right') is None:
+            # node not saved yet
+            return 0
+        else:
+            return (self._mpttfield('right') - self._mpttfield('left') - 1) // 2
+
+
+
     def get_absolute_url(self):
         return reverse('categoryProducts', kwargs={'slug': self.slug})
+
+    def get_queryset(self):
+        # qs = super().get_queryset(request)
+        # Add cumulative product count
+        qs = Category.objects.add_related_count(
+            self,
+            Product,
+            'category',
+            'products_cumulative_count',
+            cumulative=True)
+
+        # Add non cumulative product count
+        qs = Category.objects.add_related_count(self,
+                                                Product,
+                                                'category',
+                                                'products_count',
+                                                cumulative=False)
+        return qs
+
+    def related_products_count(self, instance):
+        return instance.products_count
+
+    related_products_count.short_description = 'Related products (for this specific category)'
+
+    def related_products_cumulative_count(self, instance):
+        return instance.products_cumulative_count
+
+    related_products_cumulative_count.short_description = 'Related products (in tree)'
 
     def __str__(self):
         full_path = [self.title]
@@ -40,7 +81,13 @@ class Category(MPTTModel):
 
 
 
+    @property
+    def products_count(self):
+        return self.products.count()
 
+    @property
+    def products_cumulative_count(self):
+        return self.get_descendants(include_self=True).aggregate(count=models.Count('products'))['count']
 
 
 
@@ -48,7 +95,7 @@ class Category(MPTTModel):
 class Product(models.Model):
     STATUS = (('True', 'Evet'),
         ('False', 'Hayir'), )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE) #many to one relation with Category
+    category = models.ForeignKey(Category,related_name='products', on_delete=models.CASCADE) #many to one relation with Category
     title = models.CharField(max_length=150)
     keywords = models.CharField(max_length=255)
     description = models.TextField(max_length=255)
